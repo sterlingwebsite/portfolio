@@ -41,7 +41,6 @@ def contact(request):
         name = request.POST.get('name')
         email = request.POST.get('email')
         message = request.POST.get('message')
-        # You could save to database or send email here
         return render(request, 'contact.html', {'success': True})
     
     return render(request, 'contact.html')
