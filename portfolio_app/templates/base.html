@@ -3,30 +3,224 @@
 <head>
     <title>{% block title %}My Portfolio{% endblock %}</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
+        * {
             margin: 0;
-            padding: 20px;
-            background-color: #f5f5f5;
+            padding: 0;
+            box-sizing: border-box;
         }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
         .container {
-            max-width: 1000px;
+            max-width: 1100px;
             margin: 0 auto;
             background: white;
+            border-radius: 10px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+            overflow: hidden;
+        }
+        
+        nav {
+            background: #333;
+            padding: 15px 20px;
+            display: flex;
+            gap: 20px;
+        }
+        
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        
+        nav a:hover {
+            color: #667eea;
+        }
+        
+        .content {
+            padding: 40px;
+        }
+        
+        h1 {
+            color: #333;
+            margin-bottom: 30px;
+            font-size: 2.5em;
+        }
+        
+        h2 {
+            color: #667eea;
+            margin-bottom: 10px;
+        }
+        
+        a {
+            color: #667eea;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        a:hover {
+            color: #764ba2;
+        }
+        
+        .filter-box {
+            background: #f8f9fa;
             padding: 20px;
             border-radius: 8px;
+            margin-bottom: 30px;
+            border-left: 4px solid #667eea;
         }
-        h1 { color: #333; }
-        a { color: #0066cc; text-decoration: none; }
-        a:hover { text-decoration: underline; }
-        .project-card {
+        
+        .search-bar {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+        
+        .search-bar input {
+            flex: 1;
+            padding: 10px 15px;
             border: 1px solid #ddd;
-            padding: 15px;
-            margin: 10px 0;
             border-radius: 5px;
+            font-size: 1em;
         }
-        nav { margin-bottom: 20px; }
-        nav a { margin-right: 15px; }
+        
+        .search-bar button {
+            padding: 10px 20px;
+            background: #667eea;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: background 0.3s;
+        }
+        
+        .search-bar button:hover {
+            background: #764ba2;
+        }
+        
+        .clear-btn {
+            background: #6c757d !important;
+        }
+        
+        .clear-btn:hover {
+            background: #5a6268 !important;
+        }
+        
+        .category-label {
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 10px;
+            display: block;
+        }
+        
+        .category-filters {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+        
+        .category-btn {
+            padding: 8px 16px;
+            background: #e9ecef;
+            color: #333;
+            border: 2px solid transparent;
+            border-radius: 20px;
+            cursor: pointer;
+            text-decoration: none;
+            transition: all 0.3s;
+            font-size: 0.95em;
+        }
+        
+        .category-btn:hover {
+            background: #667eea;
+            color: white;
+        }
+        
+        .category-btn.active {
+            background: #667eea;
+            color: white;
+            border-color: #764ba2;
+        }
+        
+        .project-count {
+            color: #666;
+            font-size: 0.95em;
+            margin-bottom: 20px;
+        }
+        
+        .project-card {
+            background: white;
+            border: 1px solid #e0e0e0;
+            padding: 25px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            transition: all 0.3s;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        
+        .project-card:hover {
+            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.2);
+            transform: translateY(-2px);
+        }
+        
+        .project-card h2 a {
+            font-size: 1.5em;
+        }
+        
+        .project-card p {
+            color: #555;
+            line-height: 1.6;
+            margin-bottom: 12px;
+        }
+        
+        .tech-stack, .category-tag {
+            display: inline-block;
+            background: #f0f0f0;
+            padding: 5px 12px;
+            border-radius: 15px;
+            font-size: 0.9em;
+            margin-right: 8px;
+            margin-top: 5px;
+        }
+        
+        .tech-stack {
+            color: #667eea;
+            border-left: 3px solid #667eea;
+            padding-left: 10px;
+        }
+        
+        .category-tag {
+            background: #667eea;
+            color: white;
+        }
+        
+        .no-results {
+            text-align: center;
+            padding: 40px;
+            color: #999;
+            font-size: 1.1em;
+        }
+        
+        .back-link {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 20px;
+            background: #667eea;
+            color: white;
+            border-radius: 5px;
+            transition: background 0.3s;
+        }
+        
+        .back-link:hover {
+            background: #764ba2;
+        }
     </style>
 </head>
 <body>
@@ -35,7 +229,9 @@
             <a href="/">Home</a>
             <a href="/contact/">Contact</a>
         </nav>
-        {% block content %}{% endblock %}
+        <div class="content">
+            {% block content %}{% endblock %}
+        </div>
     </div>
 </body>
 </html>

@@ -36,4 +36,12 @@ def project_detail(request, id):
     return render(request, 'project_detail.html', {'project': project})
 
 def contact(request):
+    if request.method == 'POST':
+        # Handle form submission
+        name = request.POST.get('name')
+        email = request.POST.get('email')
+        message = request.POST.get('message')
+        # You could save to database or send email here
+        return render(request, 'contact.html', {'success': True})
+    
     return render(request, 'contact.html')
